@@ -7,10 +7,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class IsraelBasePage {
     public WebDriver driver;
     public WebDriverWait wait = null;
+    By article= By.cssSelector("#__next #main");
+    By mainArticles= By.cssSelector("div[class='posts-main-gallery'] .post-media");
+    By mainArticles2=By.cssSelector(".posts-octet .posts-card-list article[class='post post-card col col-initial-12 col-xs-6 col-med-3 ']");
 
     public IsraelBasePage(WebDriver driver) {
         this.driver = driver;
@@ -21,6 +25,8 @@ public class IsraelBasePage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
+
+
 
     public String readText(By elementLocation) {
         waitVisibility(elementLocation);
@@ -47,4 +53,30 @@ public class IsraelBasePage {
         driver.findElement(elementLocation).click();
     }
 
+    public String getPictureUrl(By elementLocation) {
+       /* try {
+            waitVisibility(elementLocation);
+        } catch (TimeoutException e){return "null";}*/
+        String image="";
+        WebElement industries = driver.findElement(article);
+        List<WebElement> links = industries.findElements(elementLocation);
+        System.out.println(links.size() + " Size");
+        if (links.size() == 0) {
+            image="Null";
+            return image;
+        }
+        for (int i=0; i<links.size(); i++) {
+            image+= links.get(i).getAttribute("src")+'\n';
+        }
+        return image;
+    }
+    public String readListOfElements(By by) {
+        String value = "";
+        List<WebElement> elements;
+        elements = driver.findElements(by);
+        int elementsSize = elements.size();
+        for (int i = 0; i < elementsSize; i++) {
+            value += elements.get(i).getText() + '\n';
+        }
+        return value;}
 }

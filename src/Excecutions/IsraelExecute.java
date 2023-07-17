@@ -9,9 +9,16 @@ public class IsraelExecute extends BaseExecute {
 
     @Test
     public void execute02_pullIsraelArticles(){
-        driver.get("https://www.israelhayom.co.il/news/law/article/14316609");
-        System.out.println(israelMainArticlePage.extractTime());
+        driver.get("https://www.israelhayom.co.il/");
+        israelMainArticlePage.pullIsraelArticle();
+        israelMainArticlePage.pullIsraelArticlesSec2();
+       /* System.out.println(israelMainArticlePage.readCategory());
+        System.out.println(israelMainArticlePage.readTitle());
+        System.out.println(israelMainArticlePage.readSubTitle());
         System.out.println(israelMainArticlePage.extractDate());
+        System.out.println(israelMainArticlePage.extractTime());
+        System.out.println(israelMainArticlePage.getImageUrl());
+        System.out.println(israelMainArticlePage.readArticleBody());*/
     }
 
 

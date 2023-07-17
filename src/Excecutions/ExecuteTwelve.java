@@ -19,6 +19,7 @@ public class ExecuteTwelve extends BaseExecute {
   driver.get("https://www.n12.co.il/");
       twelveMainArticlePage.pullN12Articles();
 
+
   }
 
 }
