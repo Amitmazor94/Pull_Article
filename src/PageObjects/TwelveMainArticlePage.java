@@ -65,7 +65,7 @@ public class TwelveMainArticlePage extends BasePage {
     public  void createDb(String site)
     {
 
-        String connectionString = "mongodb+srv://shilo:a72Y53vXKjhNDAJn@chatnews.uaripa9.mongodb.net/?retryWrites=true&w=majority";
+        String connectionString = "mongodb+srv://yaal-2122:wsmJQ3ggbFxFtHX@cluster0.qnlfmxm.mongodb.net/GQ-Dashboard?retryWrites=true&w=majority";
         ServerApi serverApi = ServerApi.builder()
                 .version(ServerApiVersion.V1)
                 .build();
@@ -127,7 +127,7 @@ public class TwelveMainArticlePage extends BasePage {
     }
 
     public void pullN12Articles(){
-        createDb("N12");
+        createDb("GQ-Dashboard");
         List<WebElement> articles= driver.findElements(mainArticles);
         System.out.println(articles.size());
         for(int i=0; i<articles.size(); i++) {
@@ -143,10 +143,10 @@ public class TwelveMainArticlePage extends BasePage {
             System.out.println("Content: " + readArticleBody());
             if (dropTable(articles.size(),"N12"))
             {
-                mongoInsertData(readCategory(),readSubTitle(),readSubTitle(),readArticleBody(),readVideoUrl(),readDate()+" "+readTime(),i,"N12");
+                mongoInsertData(readCategory(),readSubTitle(),readSubTitle(),readArticleBody(),readVideoUrl(),readDate()+" "+readTime(),i,"n12_news");
             }
             else {
-                mongoUpdateData(readCategory(),readSubTitle(),readSubTitle(),readArticleBody(),readVideoUrl(),readDate()+" "+readTime(),i,"N12");
+                mongoUpdateData(readCategory(),readSubTitle(),readSubTitle(),readArticleBody(),readVideoUrl(),readDate()+" "+readTime(),i,"n12_news");
             }
             clickN12Button();
            waitForElement(mainArticles);
