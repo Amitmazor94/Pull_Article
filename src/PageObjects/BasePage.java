@@ -28,9 +28,9 @@ public class BasePage {
     By date = By.cssSelector(".display-date span");
     By time = By.cssSelector(".display-date span");
     By picture = By.cssSelector("figure img");
-    By articleBody = By.cssSelector("section.article-body p");
-    By siteLogo= By.cssSelector(".toolbar a.logo");
-    By mainArticles=By.cssSelector("#part1 ul[box-title='רכיב ראשי חדשות'] li[data-image-type='i']");
+    By articleBody = By.cssSelector("section[class='article-body'] p");
+    By siteLogo= By.cssSelector(".toolbar .logo");
+    By mainArticles=By.cssSelector("#part1 li[data-image-type='i']");
 
 
 

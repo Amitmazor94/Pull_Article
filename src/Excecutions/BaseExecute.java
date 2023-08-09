@@ -19,7 +19,7 @@ public class BaseExecute {
 
 @BeforeClass
     public static void browserSetup(){
-    System.setProperty("webdriver.chrome.driver", "C:\\הורדות קורס\\chromedriver_win32 (2)\\chromedriver.exe");
+    System.setProperty("webdriver.chrome.driver", "C:\\הורדות קורס\\chromedriver_win32 (3)\\chromedriver.exe");
     ChromeOptions options = new ChromeOptions();
     options.addArguments("--remote-allow-origins=*");
     driver = new ChromeDriver(options);
