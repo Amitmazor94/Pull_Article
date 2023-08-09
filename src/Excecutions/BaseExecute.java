@@ -22,6 +22,7 @@ public class BaseExecute {
     System.setProperty("webdriver.chrome.driver", "C:\\הורדות קורס\\chromedriver_win32 (3)\\chromedriver.exe");
     ChromeOptions options = new ChromeOptions();
     options.addArguments("--remote-allow-origins=*");
+    options.addArguments("--incognito");
     driver = new ChromeDriver(options);
     driver.manage().window().maximize();
     twelveHomePage= new TwelveHomePage(driver);

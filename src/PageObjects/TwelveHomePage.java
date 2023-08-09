@@ -1,6 +1,7 @@
 package PageObjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -15,8 +16,11 @@ public class TwelveHomePage extends BasePage {
     }
 
 
-    public TwelveHomePage clickMainArticle() {
-        clickButton(mainArticle);
+    public TwelveHomePage clickMainArticle() throws InterruptedException {
+        try{
+        clickButton(mainArticle);}catch (TimeoutException e){
+            clickButton(mainArticle);
+        }
         return this;
     }
 
