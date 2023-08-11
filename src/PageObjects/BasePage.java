@@ -2,9 +2,8 @@ package PageObjects;
 
 import com.mongodb.client.MongoClient;
 import org.bson.types.ObjectId;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -22,7 +21,7 @@ public class BasePage {
     public WebDriver driver;
     public WebDriverWait wait = null;
     By article = By.cssSelector("div#article-wrap");
-    By category = By.cssSelector("li[class=' here']");
+    By category = By.cssSelector("nav[class='breadcrumbs-v_2017 not_for_print']");
     By articleTitle = By.cssSelector("section h1");
     By subTitle = By.cssSelector("section h2");
     By date = By.cssSelector(".display-date span");
@@ -30,7 +29,8 @@ public class BasePage {
     By picture = By.cssSelector("figure img");
     By articleBody = By.cssSelector("section[class='article-body'] p");
     By siteLogo= By.cssSelector(".toolbar .logo");
-    By mainArticles=By.cssSelector("#part1 li[data-image-type='i']");
+    By mainArticles=By.xpath("//*[@id=\"part1\"]/ul/li/figure");
+    Actions actions;
 
 
 
@@ -46,15 +46,37 @@ public class BasePage {
         waitVisibility(elementLocation);
 
         String text="";
-        if(driver.findElement(elementLocation).isDisplayed()){
+        if (waitVisibility(elementLocation)==true){
+
+        if(driver.findElement(elementLocation).isDisplayed())
+        {
             text=driver.findElement(elementLocation).getText();
-        return text;}
-        return "NULL";
+            return text;}
+        }
+            text="NULL";
+        return text;
     }
 
     public void clickButton(By elementLocation) {
         waitVisibility(elementLocation);
         driver.findElement(elementLocation).click();
+    }
+    public void clickJS(By elementLocation) {
+        waitVisibility(elementLocation);
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+        jsExecutor.executeScript("arguments[0].scrollIntoView(true);",elementLocation);
+        //driver.findElement(elementLocation).click();
+    }
+
+    public void clickWebelementJs(By elementLocation, int i) throws InterruptedException {
+        waitVisibility(elementLocation);
+        List <WebElement> elements=driver.findElements(elementLocation);
+        actions=new Actions(driver);
+        /*JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+        jsExecutor.executeScript("arguments[0].scrollIntoView(true);",elements.get(i));*/
+        actions.moveToElement(elements.get(i)).click().perform();
+        //Thread.sleep(2000);
+        //element.click();
     }
 
     public void writeText(By elementLocation, String value) {
@@ -75,27 +97,20 @@ public class BasePage {
 
     }
 
-    public void waitVisibility(By by) {
-        /*wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(by));*/
-       /* try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        wait.until(ExpectedConditions.visibilityOfElementLocated(by));*/
+    public boolean waitVisibility(By by) {
 
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        try{wait.until(ExpectedConditions.visibilityOfElementLocated(by));}catch(TimeoutException e){return false;}
+        return true;
     }
 
     public void waitForElement(By by){
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+       wait.until(ExpectedConditions.visibilityOfElementLocated(by));
     }
 
     public String extractTime(By elementLocation) {

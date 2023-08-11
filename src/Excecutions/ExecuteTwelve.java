@@ -15,7 +15,7 @@ public class ExecuteTwelve extends BaseExecute {
 
 
   @Test
-  public void execute01_printMainArticleAttributes() {
+  public void execute01_printMainArticleAttributes() throws InterruptedException {
   driver.get("https://www.n12.co.il/");
       twelveMainArticlePage.pullN12Articles();
 

@@ -18,8 +18,8 @@ public class TwelveHomePage extends BasePage {
 
     public TwelveHomePage clickMainArticle() throws InterruptedException {
         try{
-        clickButton(mainArticle);}catch (TimeoutException e){
-            clickButton(mainArticle);
+        clickJS(mainArticle);}catch (TimeoutException e){
+            clickJS(mainArticle);
         }
         return this;
     }
