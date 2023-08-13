@@ -21,7 +21,7 @@ public class BasePage {
     public WebDriver driver;
     public WebDriverWait wait = null;
     By article = By.cssSelector("div#article-wrap");
-    By category = By.cssSelector("nav[class='breadcrumbs-v_2017 not_for_print']");
+    By category = By.cssSelector("li.here");
     By articleTitle = By.cssSelector("section h1");
     By subTitle = By.cssSelector("section h2");
     By date = By.cssSelector(".display-date span");

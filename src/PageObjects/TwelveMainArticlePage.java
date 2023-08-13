@@ -62,7 +62,7 @@ public class TwelveMainArticlePage extends BasePage {
         clickButton(siteLogo);
     }
 
-    /*public  void createDb(String site)
+    public  void createDb(String site)
     {
         //"mongodb+srv://tzafriravram:NJJXeCYygkVrLxHl@cluster0.w9dqbue.mongodb.net/";
 //"mongodb+srv://yaal-2122:wsmJQ3ggbFxFtHX@cluster0.qnlfmxm.mongodb.net/GQ-Dashboard?retryWrites=true&w=majority";
@@ -125,10 +125,10 @@ public class TwelveMainArticlePage extends BasePage {
                         .append("image",image)
                         .append("date_time",date_time));
         db.getCollection(site).updateOne(searchQuery, updateQuery);
-    }*/
+    }
 
     public void pullN12Articles() throws InterruptedException {
-        //createDb("GQ-Dashboard");
+        createDb("GQ-Dashboard");
         List<WebElement> articles= driver.findElements(mainArticles);
         System.out.println(articles.size());
         for(int i=0; i<articles.size(); i++) {
@@ -145,13 +145,13 @@ public class TwelveMainArticlePage extends BasePage {
             System.out.println("Time: " + readTime());
             System.out.println("Video: " + readVideoUrl());
             System.out.println("Content: " + readArticleBody());
-           /* if (dropTable(articles.size(),"N12"))
+          /* if (dropTable(articles.size(),"N12"))
             {
                 mongoInsertData(readCategory(),readSubTitle(),readSubTitle(),readArticleBody(),readVideoUrl(),readDate()+" "+readTime(),i,"n12_news");
             }
-            else {
+            else {*/
                 mongoUpdateData(readCategory(),readSubTitle(),readSubTitle(),readArticleBody(),readVideoUrl(),readDate()+" "+readTime(),i,"n12_news");
-            }*/
+           //}
             driver.navigate().back();
             //clickN12Button();
            waitForElement(mainArticles);
