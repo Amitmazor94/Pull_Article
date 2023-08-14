@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.junit.BeforeClass;
 import org.openqa.selenium.interactions.Actions;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 public class BaseExecute {
@@ -24,7 +25,8 @@ public class BaseExecute {
     System.setProperty("webdriver.chrome.driver", "C:\\הורדות קורס\\chromedriver_win32 (3)\\chromedriver.exe");
     ChromeOptions options = new ChromeOptions();
     options.addArguments("--remote-allow-origins=*");
-    options.addArguments("--incognito");
+    options.addExtensions(new File("./Extensions/extension_1_50_0_0.crx"));
+    //options.addArguments("--incognito");
     driver = new ChromeDriver(options);
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.manage().window().maximize();

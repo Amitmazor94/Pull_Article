@@ -23,11 +23,10 @@ public class TwelveMainArticlePage extends BasePage {
     public MongoDatabase db;
 
 
-
     public String readCategory() {
 
-       if(!readText(category).equals("NULL")) return readText(category);
-       else return "NULL";
+        if (!readText(category).equals("NULL")) return readText(category);
+        else return "NULL";
     }
 
 
@@ -49,7 +48,6 @@ public class TwelveMainArticlePage extends BasePage {
     }
 
 
-
     public String readVideoUrl() {
         return getPictureUrl(picture);
     }
@@ -57,13 +55,29 @@ public class TwelveMainArticlePage extends BasePage {
     public String readArticleBody() {
         return readListOfElements(articleBody);
     }
-    public void clickN12Button(){
+
+    public void clickN12Button() {
         waitForElement(siteLogo);
         clickButton(siteLogo);
     }
 
-    public  void createDb(String site)
-    {
+
+    public TwelveMainArticlePage closePopUp() {
+
+        try {
+            driver.findElement(xPopUp).click();
+        } catch (NoSuchElementException e) {
+            System.out.println("no xPopUp");
+        }
+        try {
+            driver.findElement(xPopUp2).click();
+        } catch (NoSuchElementException e) {
+            System.out.println("no xPopUp2");
+        }
+        return this;
+    }
+
+    public void createDb(String site) {
         //"mongodb+srv://tzafriravram:NJJXeCYygkVrLxHl@cluster0.w9dqbue.mongodb.net/";
 //"mongodb+srv://yaal-2122:wsmJQ3ggbFxFtHX@cluster0.qnlfmxm.mongodb.net/GQ-Dashboard?retryWrites=true&w=majority";
         String connectionString = "mongodb+srv://yaal-2122:wsmJQ3ggbFxFtHX@cluster0.qnlfmxm.mongodb.net/GQ-Dashboard?retryWrites=true&w=majority";
@@ -83,19 +97,16 @@ public class TwelveMainArticlePage extends BasePage {
         System.out.println("Get database is successful");
     }
 
-    public Boolean dropTable(int i,String site)
-    {
-        MongoCollection<Document> collection= db.getCollection(site);
-        if (collection.countDocuments()<i)
-        {
+    public Boolean dropTable(int i, String site) {
+        MongoCollection<Document> collection = db.getCollection(site);
+        if (collection.countDocuments() < i) {
             return true;
         }
         return false;
     }
 
-    public void mongoInsertData(String category,String title, String subtitle,String summary,String image,String date_time,int count,String site)
-    {
-        MongoCollection<Document> collection= db.getCollection(site);
+    public void mongoInsertData(String category, String title, String subtitle, String summary, String image, String date_time, int count, String site) {
+        MongoCollection<Document> collection = db.getCollection(site);
         InsertOneResult result = collection.insertOne(new Document()
                 .append("_id", new ObjectId())
                 .append("author", site)
@@ -103,13 +114,12 @@ public class TwelveMainArticlePage extends BasePage {
                 .append("category", category)
                 .append("title", title)
                 .append("subtitle", subtitle)
-                .append("summary",summary)
-                .append("image",image)
-                .append("date_time",date_time));
+                .append("summary", summary)
+                .append("image", image)
+                .append("date_time", date_time));
     }
 
-    public void mongoUpdateData(String category,String title, String subtitle,String summary,String image,String date_time,int count,String site)
-    {
+    public void mongoUpdateData(String category, String title, String subtitle, String summary, String image, String date_time, int count, String site) {
         BasicDBObject searchQuery = new BasicDBObject();
         searchQuery.append("num", count)
                 .append("author", site);
@@ -121,24 +131,34 @@ public class TwelveMainArticlePage extends BasePage {
                         .append("category", category)
                         .append("title", title)
                         .append("subtitle", subtitle)
-                        .append("summary",summary)
-                        .append("image",image)
-                        .append("date_time",date_time));
+                        .append("summary", summary)
+                        .append("image", image)
+                        .append("date_time", date_time));
         db.getCollection(site).updateOne(searchQuery, updateQuery);
     }
 
     public void pullN12Articles() throws InterruptedException {
         createDb("GQ-Dashboard");
-        List<WebElement> articles= driver.findElements(mainArticles);
+        List<WebElement> articles = driver.findElements(mainArticles);
         System.out.println(articles.size());
-        for(int i=0; i<articles.size(); i++) {
-            Thread.sleep(4000);
+        int i;
+        for (i = 0; i < articles.size(); i++) {
+            //Thread.sleep(1500);
+            //closePopUp();
             waitForElement(mainArticles);
             clickWebelementJs(mainArticles, i);
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+            if (driver.getCurrentUrl().contains("story")) {
+                driver.navigate().back();
+                driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+                i += 1;
+                clickWebelementJs(mainArticles, i);
+            }
+
             //articles.get(i).click();
             //twelveHomePage.clickMainArticle();
-            System.out.println("category: " +readCategory() );
+            System.out.println("category: " + readCategory());
             System.out.println("Title: " + readArticleTitle());
             System.out.println("Sub Title: " + readSubTitle());
             System.out.println("Date: " + readDate());
@@ -150,13 +170,15 @@ public class TwelveMainArticlePage extends BasePage {
                 mongoInsertData(readCategory(),readSubTitle(),readSubTitle(),readArticleBody(),readVideoUrl(),readDate()+" "+readTime(),i,"n12_news");
             }
             else {*/
-                mongoUpdateData(readCategory(),readSubTitle(),readSubTitle(),readArticleBody(),readVideoUrl(),readDate()+" "+readTime(),i,"n12_news");
-           //}
+            mongoUpdateData(readCategory(), readSubTitle(), readSubTitle(), readArticleBody(), readVideoUrl(), readDate() + " " + readTime(), i, "n12_news");
+            //}
             driver.navigate().back();
-            //clickN12Button();
-           waitForElement(mainArticles);
-            articles=driver.findElements(mainArticles);
-           System.out.println(articles.size()+" i "+i);
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            waitForElement(mainArticles);
+            articles = driver.findElements(mainArticles);
+            System.out.println(articles.size() + " i " + i);
         }
     }
 }
+
+

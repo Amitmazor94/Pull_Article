@@ -30,6 +30,11 @@ public class BasePage {
     By articleBody = By.cssSelector("section[class='article-body'] p");
     By siteLogo= By.cssSelector(".toolbar .logo");
     By mainArticles=By.xpath("//*[@id=\"part1\"]/ul/li/figure");
+    By xPopUp= By.cssSelector("#TopVideo #CloseButton");
+    By xPopUp2= By.cssSelector("div #CloseButton");
+    By popUp= By.cssSelector("a[onclick='clickBanner()'] #VideoVideo");
+    By popUp2= By.xpath("//body/div[2]/a/img");
+
     Actions actions;
 
 
@@ -63,8 +68,11 @@ public class BasePage {
     }
     public void clickJS(By elementLocation) {
         waitVisibility(elementLocation);
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-        jsExecutor.executeScript("arguments[0].scrollIntoView(true);",elementLocation);
+        WebElement element=driver.findElement(elementLocation);
+        //JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+        actions=new Actions(driver);
+        //jsExecutor.executeScript("arguments[0].scrollIntoView(true);",elementLocation);
+        actions.moveToElement(element).click().perform();
         //driver.findElement(elementLocation).click();
     }
 
@@ -135,9 +143,6 @@ public class BasePage {
     }
 
     public String getPictureUrl(By elementLocation) {
-       /* try {
-            waitVisibility(elementLocation);
-        } catch (TimeoutException e){return "null";}*/
         String image="";
         WebElement industries = driver.findElement(article);
         List<WebElement> links = industries.findElements(elementLocation);
