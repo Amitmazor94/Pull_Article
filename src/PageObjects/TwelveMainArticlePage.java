@@ -170,7 +170,7 @@ public class TwelveMainArticlePage extends BasePage {
                 mongoInsertData(readCategory(),readSubTitle(),readSubTitle(),readArticleBody(),readVideoUrl(),readDate()+" "+readTime(),i,"n12_news");
             }
             else {*/
-            mongoUpdateData(readCategory(), readSubTitle(), readSubTitle(), readArticleBody(), readVideoUrl(), readDate() + " " + readTime(), i, "n12_news");
+            mongoUpdateData(readCategory(), readArticleTitle(), readSubTitle(), readArticleBody(), readVideoUrl(), readDate() + " " + readTime(), i, "n12_news");
             //}
             driver.navigate().back();
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

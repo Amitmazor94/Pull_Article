@@ -165,10 +165,10 @@ public class IsraelMainArticlePage extends IsraelBasePage {
             System.out.println("Content: "+readArticleBody());
             if (dropTable(articles.size(),"Israel_Hayom"))
             {
-                mongoInsertData(readCategory(),readSubTitle(),readSubTitle(),readArticleBody(),getImageUrl(),extractDate()+" "+extractTime(),i,"Israel_Hayom");
+                mongoInsertData(readCategory(),readTitle(),readSubTitle(),readArticleBody(),getImageUrl(),extractDate()+" "+extractTime(),i,"Israel_Hayom");
             }
             else {
-                mongoUpdateData(readCategory(),readSubTitle(),readSubTitle(),readArticleBody(),getImageUrl(),extractDate()+" "+extractTime(),i,"Israel_Hayom");
+                mongoUpdateData(readCategory(),readTitle(),readSubTitle(),readArticleBody(),getImageUrl(),extractDate()+" "+extractTime(),i,"Israel_Hayom");
             }
             clickIsraelLogo();
             waitForElement(mainArticles);

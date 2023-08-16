@@ -13,8 +13,8 @@ public class IsraelBasePage {
     public WebDriver driver;
     public WebDriverWait wait = null;
     By article= By.cssSelector("#__next #main");
-    By mainArticles= By.cssSelector("div[class='posts-main-gallery'] .post-media");
-    By mainArticles2=By.cssSelector(".posts-octet .posts-card-list article[class='post post-card col col-initial-12 col-xs-6 col-med-3 ']");
+    By mainArticles= By.cssSelector(".posts-octet div[class='posts-main-gallery'] .row article");
+    By mainArticles2=By.cssSelector("div[class='row post-card-list'] article[class='post post-card col col-initial-12 col-xs-6 col-med-3 '] .post-media figure img");
 
     public IsraelBasePage(WebDriver driver) {
         this.driver = driver;
@@ -54,9 +54,6 @@ public class IsraelBasePage {
     }
 
     public String getPictureUrl(By elementLocation) {
-       /* try {
-            waitVisibility(elementLocation);
-        } catch (TimeoutException e){return "null";}*/
         String image="";
         WebElement industries = driver.findElement(article);
         List<WebElement> links = industries.findElements(elementLocation);
@@ -65,8 +62,11 @@ public class IsraelBasePage {
             image="Null";
             return image;
         }
-        for (int i=0; i<links.size(); i++) {
+        /*for (int i=0; i<links.size(); i++) {
             image+= links.get(i).getAttribute("src")+'\n';
+        }*/
+        else if(links.size()>0){
+            image=links.get(0).getAttribute("src");
         }
         return image;
     }

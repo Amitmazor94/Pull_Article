@@ -151,9 +151,11 @@ public class BasePage {
             image="Null";
             return image;
         }
-        for (int i=0; i<links.size(); i++) {
-           image+= links.get(i).getAttribute("src")+'\n';
-        }
+        //for (int i=0; i<links.size(); i++) {
+           //image+= links.get(i).getAttribute("src")+'\n';
+        //}
+        else if (links.size()>0)
+            image=links.get(0).getAttribute("src");
         return image;
     }
     public List<WebElement> listOfArticles(By elementLocation) {
