@@ -1,5 +1,6 @@
 package Excecutions;
 
+import PageObjects.IsraelHomePage;
 import PageObjects.IsraelMainArticlePage;
 import PageObjects.TwelveHomePage;
 import PageObjects.TwelveMainArticlePage;
@@ -20,9 +21,10 @@ public class BaseExecute {
     static IsraelMainArticlePage israelMainArticlePage;
 
 
+
 @BeforeClass
     public static void browserSetup(){
-    System.setProperty("webdriver.chrome.driver", "C:\\הורדות קורס\\chromedriver_win32 (3)\\chromedriver.exe");
+    System.setProperty("webdriver.chrome.driver", "C:\\הורדות קורס\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
     ChromeOptions options = new ChromeOptions();
     options.addArguments("--remote-allow-origins=*");
     options.addExtensions(new File("./Extensions/extension_1_50_0_0.crx"));
@@ -33,7 +35,6 @@ public class BaseExecute {
      Actions actions=new Actions(driver);
     twelveHomePage= new TwelveHomePage(driver);
     twelveMainArticlePage= new TwelveMainArticlePage(driver);
-
     israelMainArticlePage=new IsraelMainArticlePage(driver);
 
     //driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);

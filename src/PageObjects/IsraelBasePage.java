@@ -3,6 +3,7 @@ package PageObjects;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -10,11 +11,13 @@ import java.time.Duration;
 import java.util.List;
 
 public class IsraelBasePage {
+    Actions actions;
     public WebDriver driver;
     public WebDriverWait wait = null;
     By article= By.cssSelector("#__next #main");
     By mainArticles= By.cssSelector(".posts-octet div[class='posts-main-gallery'] .row article");
     By mainArticles2=By.cssSelector("div[class='row post-card-list'] article[class='post post-card col col-initial-12 col-xs-6 col-med-3 '] .post-media figure img");
+    By mainArticles3= By.cssSelector("div[class^='posts-main-gallery widget element-'] article");
 
     public IsraelBasePage(WebDriver driver) {
         this.driver = driver;
@@ -53,13 +56,20 @@ public class IsraelBasePage {
         driver.findElement(elementLocation).click();
     }
 
+    public void clickWebelementJs(By elementLocation, int i)  {
+        waitVisibility(elementLocation);
+        List <WebElement> elements=driver.findElements(elementLocation);
+        actions=new Actions(driver);
+        actions.moveToElement(elements.get(i)).click().perform();
+    }
+
     public String getPictureUrl(By elementLocation) {
         String image="";
         WebElement industries = driver.findElement(article);
         List<WebElement> links = industries.findElements(elementLocation);
         System.out.println(links.size() + " Size");
         if (links.size() == 0) {
-            image="Null";
+            image="https://www.brandwiz.co.il/userfiles/image/israel_album_open/brand_israelayom_a_02.jpg";
             return image;
         }
         /*for (int i=0; i<links.size(); i++) {

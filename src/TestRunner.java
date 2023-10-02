@@ -1,3 +1,4 @@
+/*
 
 import Excecutions.ExecuteTwelve;
 import org.junit.runner.JUnitCore;
@@ -15,4 +16,4 @@ public class TestRunner {
 
         }
     }
-}
+}*/
